@@ -1,12 +1,27 @@
 import autoBind from 'auto-bind'
 import isNode from './functions/isNode'
 
-class StringBean {
-  constructor(string) {
+const StringPrototype = Object.getPrototypeOf("")
+
+const stringClassMethods = {}
+Object.getOwnPropertyNames(StringPrototype).map(property => {
+  try {
+    const output = StringPrototype[property]
+    if (typeof output == 'function') stringClassMethods[property] = output
+  } catch(error) {}
+});
+
+class SeamString {
+  constructor(string="") {
     if (typeof string != 'string') throw new Error("Must supply a string as the first argument")
     autoBind(this)
     this.originalString = string
     this.currentString = string
+    Object.entries(stringClassMethods).forEach(([name, func]) => {
+      this[name] = (...args)=>{
+        return this.currentString[name].apply(this.currentString, args)
+      }
+    })
   }
   getString() {
     return this.currentString
@@ -87,6 +102,16 @@ class StringBean {
     const writeFile = promisify(require('fs').writeFile)
     await writeFile(path, this.currentString)
   }
+  static fromFile(path) {
+    return (async () => {
+      if (typeof path != 'string') throw new Error("Must supply a path string")
+      if (!isNode()) throw new Error("This function can only be run in a Node.js environment")
+      const {promisify} = require('util')
+      const readFile = promisify(require('fs').readFile)
+      const content = await readFile(path, 'utf8')
+      return new SeamString(content)
+    })() // async static work around
+  }
 }
 
-export default StringBean
+export default SeamString

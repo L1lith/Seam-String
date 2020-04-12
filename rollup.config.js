@@ -7,9 +7,9 @@ import deepmerge from 'deepmerge'
 const baseConfig = {
     input: join(__dirname, 'source', 'index.js'),
     output: {
-        name: 'StringBean'
+        name: 'SeamString'
     },
-    name: 'StringBean',
+    name: 'SeamString',
     plugins: [
         resolve({ jsnext: true }),
         commonjs({
@@ -22,19 +22,19 @@ const branchConfigs = [
     {
         output: {
             format: 'iife',
-            file: join(__dirname, 'dist', 'StringBean-browser.js')
+            file: join(__dirname, 'dist', 'SeamString-browser.js')
         }
     },
     {
         output: {
             format: 'cjs',
-            file: join(__dirname, 'dist', 'StringBean-commonjs.js')
+            file: join(__dirname, 'dist', 'SeamString-commonjs.js')
         }
     },
     {
         output: {
             format: 'umd',
-            file: join(__dirname, 'dist', 'StringBean-universal.js')
+            file: join(__dirname, 'dist', 'SeamString-universal.js')
         }
     }
 ]
