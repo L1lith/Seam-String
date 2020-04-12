@@ -1,8 +1,8 @@
 {
   "name": "seam-string",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "String modification made easy",
-  "main": "dist/String-bean-commonjs.js",
+  "main": "dist/SeamString-commonjs.js",
   "scripts": {
     "build": "rollup -c",
     "build-production": "NODE_ENV=production && rollup -c --environment NODE_ENV:production",
