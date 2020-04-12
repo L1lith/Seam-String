@@ -18,9 +18,7 @@ const aliases = {
   insertBefore: 'injectBefore',
   addAfter: "appendAfter",
   add: "append",
-  writeToFile: 'writeFile',
-  readFromFile: 'readFile',
-  fromFile: 'readFile'
+  writeToFile: 'writeFile'
 }
 
 class SeamString {
@@ -136,6 +134,9 @@ class SeamString {
       const content = await readFile(path, 'utf8')
       return new SeamString(content)
     })() // async static work around
+  }
+  static fromFile(path) {
+    return SeamString.fromFile(path)
   }
 }
 
