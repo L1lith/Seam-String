@@ -1,6 +1,6 @@
 {
   "name": "string-bean",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "String modification made easy",
   "main": "dist/String-bean-commonjs.js",
   "scripts": {
