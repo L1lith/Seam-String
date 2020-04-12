@@ -1,0 +1,28 @@
+{
+  "name": "string-bean",
+  "version": "0.0.1",
+  "description": "String modification made easy",
+  "main": "dist/String-bean-commonjs.js",
+  "scripts": {
+    "build": "rollup -c",
+    "build-production": "NODE_ENV=production && rollup -c --environment NODE_ENV:production",
+    "build-production-windows": "set NODE_ENV=production && rollup -c --environment NODE_ENV:production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "L1lith",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "deepmerge": "^4.2.2",
+    "rollup": "^1.27.8",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-require-context": "^1.0.0",
+    "rollup-plugin-uglify": "^6.0.3"
+  },
+  "dependencies": {
+    "auto-bind": "^4.0.0"
+  }
+}

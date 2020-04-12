@@ -1,0 +1,7 @@
+/dist/
+/docs-source/dist/
+node_modules/
+.DS_Store
+/test.js
+/testing/*
+!/**/.gitkeep
