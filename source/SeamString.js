@@ -7,9 +7,21 @@ const stringClassMethods = {}
 Object.getOwnPropertyNames(StringPrototype).map(property => {
   try {
     const output = StringPrototype[property]
-    if (typeof output == 'function') stringClassMethods[property] = output
+    if (typeof output == 'function') {
+      stringClassMethods[property] = output
+    }
   } catch(error) {}
 });
+
+const aliases = {
+  insertBeforeBeginning: "injectBeforeBeginning",
+  insertBefore: 'injectBefore',
+  addAfter: "appendAfter",
+  add: "append",
+  writeToFile: 'writeFile',
+  readFromFile: 'readFile',
+  fromFile: 'readFile'
+}
 
 class SeamString {
   constructor(string="") {
@@ -17,10 +29,23 @@ class SeamString {
     autoBind(this)
     this.originalString = string
     this.currentString = string
+    // Mirror String Methods
     Object.entries(stringClassMethods).forEach(([name, func]) => {
-      this[name] = (...args)=>{
-        return this.currentString[name].apply(this.currentString, args)
+      if (!(name in this)) {
+        this[name] = (...args)=>{
+          return this.currentString[name].apply(this.currentString, args)
+        }
       }
+    })
+    Object.entries(aliases).forEach(([alias, target]) => {
+      if (typeof alias != 'string' || typeof target !== 'string') return
+      Object.defineProperty(this, alias, {
+        enumerable: true,
+        configurable: false,
+        get: ()=>{
+          return this[target] || SeamString[target]
+        }
+      })
     })
   }
   getString() {
@@ -102,7 +127,7 @@ class SeamString {
     const writeFile = promisify(require('fs').writeFile)
     await writeFile(path, this.currentString)
   }
-  static fromFile(path) {
+  static readFile(path) {
     return (async () => {
       if (typeof path != 'string') throw new Error("Must supply a path string")
       if (!isNode()) throw new Error("This function can only be run in a Node.js environment")
