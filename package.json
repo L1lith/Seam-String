@@ -1,6 +1,6 @@
 {
   "name": "seam-string",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "String modification made easy",
   "main": "dist/String-bean-commonjs.js",
   "scripts": {
